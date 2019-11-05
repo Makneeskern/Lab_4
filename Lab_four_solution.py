@@ -226,52 +226,52 @@ def main():
     forrest = []
     #forrest.append()
     file = open("C:\\Users\\Mikef\\Desktop\\Programs\\Classwork\\CS2302\\Lab 3 - Option B\\words.txt", 'r')
-    test_words = open("C:\\Users\\Mikef\\Desktop\\Programs\\Classwork\\CS2302\\Lab 3 - Option B\\wordy_thingies.txt", 'r')
+    degrees = input("How many degrees will the B-tree have?\n")
+    print("Input recieved. \n Processing...")
     forrest.append(AVLBBST())
-    forrest.append(BTree())
+    forrest.append(BTree(int(degrees)))
     forrest.append(RedBlack())
     seed = file.readline().strip()
+    sum_avl = 0
+    sum_rb = 0
+    sum_b = 0
+    A = 0
+    B = 0
+    C = 0
+    D = 0
     while seed != "":
-        print(seed)
+        A = time.time()
         forrest[0].AVLTreeInsert(seed.lower())
+        B = time.time()
         forrest[1].insert(seed.lower())
+        C = time.time()
         forrest[2].rbInsert(seed.lower())
+        D = time.time()
         seed = file.readline().strip()
+        sum_avl += B - A
+        sum_b += C - B
+        sum_rb += D - C
     
     file.close()
     
     start_AV = time.time()
-    fruit = test_words.readline().strip()
-    while fruit != "":
-        print_anagrams(fruit.lower(), forrest[0])
-        fruit = test_words.readline().strip()
+    print_anagrams("opt", forrest[0])
     end_AV = time.time()
     
-    test_words.close()
-    test_words = open("C:\\Users\\Mikef\\Desktop\\Programs\\Classwork\\CS2302\\Lab 3 - Option B\\wordy_thingies.txt", 'r')
-    
     start_b = time.time()
-    fruit = test_words.readline().strip()
-    while fruit != "":
-        print_anagrams_b(fruit.lower(), forrest[1])
-        fruit = test_words.readline().strip()
+    print_anagrams_b("opt", forrest[1])
     end_b = time.time()
     
-    test_words.close()
-    test_words = open("C:\\Users\\Mikef\\Desktop\\Programs\\Classwork\\CS2302\\Lab 3 - Option B\\wordy_thingies.txt", 'r')
-    
     start_RB = time.time()
-    fruit = test_words.readline().strip()
-    while fruit != "":
-        print_anagrams(fruit.lower(), forrest[2])
-        fruit = test_words.readline().strip()
+    print_anagrams("opt", forrest[2])
     end_RB = time.time()
     
-    test_words.close()
-    
-    print("AVL runtime: ", end_AV - start_AV)
-    print("B-Tree runtime: ", end_b - start_b)
-    print("Red Black runtime: ", end_RB - start_RB)
+    print("AVL runtime (Input): ", sum_avl)
+    print("AVL runtime (Search): ", end_AV - start_AV)
+    print("B-Tree runtime (Input): ", sum_b)
+    print("B-Tree runtime (Search): ", end_b - start_b)
+    print("Red Black runtime (Input): ", sum_rb)
+    print("Red Black runtime (Search): ", end_RB - start_RB)
     
 if __name__ == "__main__":
     main()
